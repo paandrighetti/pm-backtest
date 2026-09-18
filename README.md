@@ -32,15 +32,18 @@ Split at 2026-06-01: 54 520 markets in sample, 29 640 out of sample. Half spread
   prints can catch thin quotes that would not have filled, which would inflate the
   overpricing; only order-book data can settle that.
 - **Dutch book.** Measured per book, not per leg. On capital the books returned 5.2 % in
-  sample and 0.0 % out of sample, and the residual sits entirely in the 289 cheap YES
-  books (19 % on 220 units of capital) against nothing on the 2 008 NO books. But the
-  test is invalid as run, and the report now says so: a true book has exactly one
-  winning outcome, so a YES book can never lose, yet 45 % of the books lost. The price
-  sums below 1 come from outcome sets that are incomplete (the volume floor drops the
-  small outcomes) or not mutually exclusive (event groupings that nest several
-  thresholds), not from mispricing. A valid test needs the negative-risk flag and the
-  complete outcome set of each event, which the ingestion does not keep yet; that is the
-  first item of the roadmap.
+  sample and 0.0 % out of sample; the residual sits entirely in the cheap YES books (19 %
+  on 220 units of capital, 289 books) against nothing on the 2 008 NO books. The winners
+  per book settle what that means. A true book has exactly one winning outcome. On the NO
+  side (prices summed above 1) 54 % of the books had several winners: the markets were
+  nested thresholds, not exclusive outcomes, and a sum above 1 is what nested markets look
+  like without any mispricing. That side is not a test of arbitrage at all. On the YES
+  side (prices summed below 1) about two thirds of the books were structurally valid and
+  profit by construction; the rest bought an incomplete outcome set (the volume floor drops
+  the small outcomes). What the valid YES books cannot show is whether the hourly prints
+  were tradeable at any size: the whole side earned about forty units over three months at
+  one share per leg. A valid test needs the negative-risk flag, the complete outcome list
+  of each event and order-book depth; the first two are the head of the roadmap.
 - **Crypto binary hedge.** The best in-sample cell (t = 4.1, selected among nine) loses
   9 % per trade out of sample (t = -2.4), hedged or not. The spot hedge halves the PnL
   variance as intended and costs about 1 % of capital, but the fair value it protects has

@@ -194,7 +194,8 @@ def book_validity(books: pd.DataFrame) -> pd.DataFrame:
     """
     if books.empty or "legs" not in books:
         return pd.DataFrame()
-    b = books.copy()
+    # the grid replays the same events under every parameter set: count each book once
+    b = books.drop_duplicates(["side", "event_id"]).copy()
     b["winners"] = np.where(b["side"] == "yes", b["payoff"], b["legs"] - b["payoff"]).round()
     out = (
         b.groupby("side")

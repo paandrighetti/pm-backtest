@@ -1,4 +1,5 @@
 data/
+reports/*.md
 reports/*.csv
 __pycache__/
 *.egg-info/
